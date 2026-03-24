@@ -11,6 +11,7 @@ input.onButtonPressed(Button.AB, function () {
             points += 1
             if (points % 5 == 0) {
                 level += 1
+                warte = warte * 0.95
             }
             asteroid = game.createSprite(randint(0, 4), 0)
         }
@@ -21,6 +22,7 @@ input.onButtonPressed(Button.B, function () {
     ship.change(LedSpriteProperty.X, 1)
 })
 let shot: game.LedSprite = null
+let warte = 0
 let points = 0
 let asteroid: game.LedSprite = null
 let ship: game.LedSprite = null
@@ -28,7 +30,7 @@ let game_end = false
 ship = game.createSprite(2, 4)
 asteroid = game.createSprite(randint(0, 4), 0)
 points = 0
-let warte = 1000
+warte = 1000
 let level = 0
 basic.forever(function () {
     basic.pause(warte)
