@@ -3,16 +3,16 @@ input.onButtonPressed(Button.A, function () {
 })
 input.onButtonPressed(Button.AB, function () {
     shot = game.createSprite(ship.get(LedSpriteProperty.X), 4)
-    while (!(shot.get(LedSpriteProperty.Y) == 0 && !(shot.isTouching(asteroid)))) {
+    while (!(shot.get(LedSpriteProperty.Y) < 1 && !(shot.isTouching(asteroid)))) {
         shot.change(LedSpriteProperty.Y, -1)
         basic.pause(25)
         if (shot.isTouching(asteroid)) {
             asteroid.delete()
             points += 1
             if (points % 5 == 0) {
-                pause2 = 0.95 * pause2
+                level += 1
             }
-            asteroid = game.createSprite(randint(0, 4), 4)
+            asteroid = game.createSprite(randint(0, 4), 0)
         }
     }
     shot.delete()
@@ -20,22 +20,21 @@ input.onButtonPressed(Button.AB, function () {
 input.onButtonPressed(Button.B, function () {
     ship.change(LedSpriteProperty.X, 1)
 })
-let level = 0
 let shot: game.LedSprite = null
-let pause2 = 0
 let points = 0
 let asteroid: game.LedSprite = null
 let ship: game.LedSprite = null
-let game2 = false
+let game_end = false
 ship = game.createSprite(2, 4)
 asteroid = game.createSprite(randint(0, 4), 0)
 points = 0
-pause2 = 1000
+let warte = 1000
+let level = 0
 basic.forever(function () {
-    basic.pause(pause2)
+    basic.pause(warte)
     while (asteroid.get(LedSpriteProperty.Y) < 4) {
         asteroid.change(LedSpriteProperty.Y, 1)
-        basic.pause(pause2)
+        basic.pause(warte)
     }
     if (asteroid.isTouching(ship)) {
         asteroid.delete()
@@ -43,7 +42,7 @@ basic.forever(function () {
         basic.showString("Game over - " + "Points: " + ("" + points) + "Level: " + ("" + level))
         level = 0
         points = 0
-        pause2 = 1000
+        warte = 1000
         ship = game.createSprite(2, 4)
         asteroid = game.createSprite(randint(0, 4), 0)
     } else {
